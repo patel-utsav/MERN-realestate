@@ -6,13 +6,10 @@ export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    // HASH THE PASSWORD
-
+    //Hashing the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log(hashedPassword);
-
-    // CREATE A NEW USER AND SAVE TO DB
+    // creating user and changing db
     const newUser = await prisma.user.create({
       data: {
         username,
@@ -20,8 +17,6 @@ export const register = async (req, res) => {
         password: hashedPassword,
       },
     });
-
-    console.log(newUser);
 
     res.status(201).json({ message: "User created successfully" });
   } catch (err) {
@@ -34,16 +29,14 @@ export const login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // CHECK IF THE USER EXISTS
-
+    //find user with provided username
     const user = await prisma.user.findUnique({
       where: { username },
     });
 
     if (!user) return res.status(400).json({ message: "Invalid Credentials!" });
 
-    // CHECK IF THE PASSWORD IS CORRECT
-
+    //checking the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid)
@@ -51,13 +44,11 @@ export const login = async (req, res) => {
 
     // GENERATE COOKIE TOKEN AND SEND TO THE USER
 
-    // res.setHeader("Set-Cookie", "test=" + "myValue").json("success")
-    const age = 1000 * 60 * 60 * 24 * 7;
+    const age = 1000 * 60 * 60 * 24 ;
 
     const token = jwt.sign(
       {
         id: user.id,
-        isAdmin: false,
       },
       process.env.JWT_SECRET_KEY,
       { expiresIn: age }
@@ -68,7 +59,6 @@ export const login = async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        // secure:true,
         maxAge: age,
       })
       .status(200)

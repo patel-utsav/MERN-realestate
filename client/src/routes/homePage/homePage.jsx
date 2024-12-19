@@ -13,23 +13,21 @@ function HomePage() {
         <div className="wrapper">
           <h1 className="title">Find Real Estate & Get Your Dream Place</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-            explicabo suscipit cum eius, iure est nulla animi consequatur
-            facilis id pariatur fugit quos laudantium temporibus dolor ea
-            repellat provident impedit!
+          At Property Lord, we make it easy for you to find the perfect property to buy or rent. Whether you're searching for a home or an investment, our platform offers a wide range of listings to suit every need and budget. With user-friendly tools and detailed information, Property Lord is your trusted partner in the real estate journey.
+
           </p>
           <SearchBar />
           <div className="boxes">
             <div className="box">
-              <h1>16+</h1>
+              <h1>5+</h1>
               <h2>Years of Experience</h2>
             </div>
             <div className="box">
-              <h1>200</h1>
+              <h1>40+</h1>
               <h2>Award Gained</h2>
             </div>
             <div className="box">
-              <h1>2000+</h1>
+              <h1>600+</h1>
               <h2>Property Ready</h2>
             </div>
           </div>
